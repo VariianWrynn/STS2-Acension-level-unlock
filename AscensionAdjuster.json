@@ -1,0 +1,11 @@
+{
+  "id": "AscensionAdjuster",
+  "name": "Ascension Adjuster",
+  "author": "Varian",
+  "description": "Freely adjust Ascension level for any character without needing to unlock them sequentially.",
+  "version": "1.0",
+  "has_pck": false,
+  "has_dll": true,
+  "dependencies": [""],
+  "affects_gameplay": true
+}

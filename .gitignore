@@ -1,0 +1,19 @@
+# Godot build artifacts
+.godot/
+
+# .NET build output
+bin/
+obj/
+
+# Runtime-generated config
+config.json
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS
+Thumbs.db
+.DS_Store
