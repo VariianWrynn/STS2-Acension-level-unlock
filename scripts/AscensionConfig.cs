@@ -41,6 +41,12 @@ public static class AscensionConfig
     /// </summary>
     public static Dictionary<string, int> CharacterOverrides => _config.CharacterOverrides;
 
+    /// <summary>
+    /// Multiplayer ascension override. Applies globally (multiplayer is not per-character).
+    /// -1 means "don't override" (default). 0-10 means "override to this level".
+    /// </summary>
+    public static int MultiplayerAscensionOverride => _config.MultiplayerAscensionOverride;
+
     public static void Initialize(string modDirectory)
     {
         _configPath = Path.Combine(modDirectory, ConfigFileName);
@@ -70,6 +76,18 @@ public static class AscensionConfig
         }
 
         return -1; // No override
+    }
+
+    /// <summary>
+    /// Gets the effective multiplayer ascension override.
+    /// Returns -1 if no override is active, 0-10 for a specific level.
+    /// </summary>
+    public static int GetEffectiveMultiplayerAscension()
+    {
+        if (!Enabled) return -1;
+        if (_config.MultiplayerAscensionOverride >= MinAscension)
+            return Math.Clamp(_config.MultiplayerAscensionOverride, MinAscension, MaxAscension);
+        return -1;
     }
 
     public static void Load()
@@ -132,5 +150,8 @@ public static class AscensionConfig
 
         [JsonPropertyName("character_overrides")]
         public Dictionary<string, int> CharacterOverrides { get; set; } = new();
+
+        [JsonPropertyName("multiplayer_ascension_override")]
+        public int MultiplayerAscensionOverride { get; set; } = -1;
     }
 }

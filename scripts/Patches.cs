@@ -29,6 +29,14 @@ namespace AscensionAdjuster.Scripts;
 /// - Patch StartRunLobby.IsAscensionEpochRevealed to return true when an
 ///   override is active, bypassing the "must beat Act 3 first" gate that
 ///   blocks ascension for characters that have never been played.
+///
+/// Multiplayer:
+/// - Multiplayer uses separate fields: ProgressState.MaxMultiplayerAscension
+///   and ProgressState.PreferredMultiplayerAscension (global, not per-character).
+/// - The lobby computes MAX = MIN(all players' maxMultiplayerAscensionUnlocked).
+/// - LobbyPlayer.maxMultiplayerAscensionUnlocked is populated from
+///   ProgressState.MaxMultiplayerAscension during lobby join, so patching
+///   the ProgressState getter is sufficient.
 /// </summary>
 public static class AscensionPatches
 {
@@ -120,6 +128,50 @@ public static class AscensionPatches
             string characterId = __instance.Id.ToString()!;
             int overrideValue = AscensionConfig.GetEffectiveAscension(characterId);
 
+            if (overrideValue >= 0 && overrideValue > __result)
+            {
+                __result = overrideValue;
+            }
+        }
+    }
+
+    // ==================== Multiplayer Patches ====================
+
+    /// <summary>
+    /// Patch ProgressState.MaxMultiplayerAscension getter.
+    /// Multiplayer ascension is global (not per-character). This value is read
+    /// when joining a lobby to populate LobbyPlayer.maxMultiplayerAscensionUnlocked,
+    /// and the lobby computes its max as MIN(all players' unlocked levels).
+    /// By overriding this getter, each player with the mod reports a higher max,
+    /// so the MIN calculation is not restrictive.
+    /// </summary>
+    [HarmonyPatch(typeof(ProgressState), nameof(ProgressState.MaxMultiplayerAscension), MethodType.Getter)]
+    public static class ProgressState_MaxMultiplayerAscension_Getter_Patch
+    {
+        public static void Postfix(ref int __result)
+        {
+            if (!AscensionConfig.Enabled) return;
+            int overrideValue = AscensionConfig.GetEffectiveMultiplayerAscension();
+            if (overrideValue >= 0 && overrideValue > __result)
+            {
+                Log.Debug($"[AscensionAdjuster] Overriding MaxMultiplayerAscension: {__result} -> {overrideValue}");
+                __result = overrideValue;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Patch ProgressState.PreferredMultiplayerAscension getter.
+    /// Syncs the preferred (default selected) multiplayer ascension to the override
+    /// so the UI defaults to the overridden level.
+    /// </summary>
+    [HarmonyPatch(typeof(ProgressState), nameof(ProgressState.PreferredMultiplayerAscension), MethodType.Getter)]
+    public static class ProgressState_PreferredMultiplayerAscension_Getter_Patch
+    {
+        public static void Postfix(ref int __result)
+        {
+            if (!AscensionConfig.Enabled) return;
+            int overrideValue = AscensionConfig.GetEffectiveMultiplayerAscension();
             if (overrideValue >= 0 && overrideValue > __result)
             {
                 __result = overrideValue;

@@ -85,6 +85,27 @@ public class Entry
                 Log.Error($"[AscensionAdjuster] Failed to patch IsAscensionEpochRevealed: {ex.Message}");
             }
 
+            // Multiplayer patches
+            try
+            {
+                harmony.CreateClassProcessor(typeof(AscensionPatches.ProgressState_MaxMultiplayerAscension_Getter_Patch)).Patch();
+                Log.Info("[AscensionAdjuster] Patched ProgressState.MaxMultiplayerAscension getter.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[AscensionAdjuster] Failed to patch MaxMultiplayerAscension: {ex.Message}");
+            }
+
+            try
+            {
+                harmony.CreateClassProcessor(typeof(AscensionPatches.ProgressState_PreferredMultiplayerAscension_Getter_Patch)).Patch();
+                Log.Info("[AscensionAdjuster] Patched ProgressState.PreferredMultiplayerAscension getter.");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[AscensionAdjuster] Failed to patch PreferredMultiplayerAscension: {ex.Message}");
+            }
+
             // Allow Godot to load custom scripts from this assembly
             ScriptManagerBridge.LookupScriptsInAssembly(typeof(Entry).Assembly);
 
@@ -92,6 +113,7 @@ public class Entry
             if (AscensionConfig.Enabled)
             {
                 Log.Info($"[AscensionAdjuster] Global override: {AscensionConfig.GlobalAscensionOverride}");
+                Log.Info($"[AscensionAdjuster] Multiplayer override: {AscensionConfig.MultiplayerAscensionOverride}");
                 foreach (var kvp in AscensionConfig.CharacterOverrides)
                 {
                     Log.Info($"[AscensionAdjuster] Character override: {kvp.Key} -> {kvp.Value}");
