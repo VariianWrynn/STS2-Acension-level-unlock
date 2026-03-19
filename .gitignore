@@ -16,6 +16,7 @@ config.json
 
 # Release artifacts
 *.zip
+*.dll
 
 # OS
 Thumbs.db
