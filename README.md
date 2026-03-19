@@ -1,12 +1,28 @@
 # Ascension Adjuster — 天梯难度调整器
 
-**杀戮尖塔 2** 模组 | Slay the Spire 2 Mod
+**杀戮尖塔 2** 模组 &nbsp;|&nbsp; Slay the Spire 2 Mod
 
 无需逐级通关解锁，直接为任意角色自由设定天梯难度等级（0–10 级）。
 
+*Skip the grind — set any character's Ascension level freely, from 0 to 10.*
+
 ---
 
-## 功能特性
+## 目录 / Contents
+
+- [功能特性 / Features](#功能特性--features)
+- [安装方法 / Installation](#安装方法--installation)
+- [激活模组 / Activation](#激活模组--activation)
+- [配置说明 / Configuration](#配置说明--configuration)
+- [多人联机 / Multiplayer](#多人联机--multiplayer)
+- [天梯等级一览 / Ascension Levels](#天梯等级一览--ascension-levels)
+- [技术原理 / How It Works](#技术原理--how-it-works)
+- [兼容性 / Compatibility](#兼容性--compatibility)
+- [许可协议 / License](#许可协议--license)
+
+---
+
+## 功能特性 / Features
 
 - 全角色天梯等级一键解锁至任意级别（默认全部解锁至 10 级）
 - 支持为每个角色单独设定不同的天梯上限
@@ -15,47 +31,56 @@
 - 不修改任何存档文件，禁用模组后游戏恢复原始进度
 - 不影响自然解锁流程：正常通关仍会正常解锁下一级
 
+> Unlock all characters to any Ascension level instantly (default: 10). Per-character overrides supported. Works on characters never played before. Optional multiplayer override. Non-destructive — disabling the mod restores original progress.
+
 ---
 
-## 安装方法
+## 安装方法 / Installation
 
-### 方法一：自动安装（推荐）
+### 方法一：自动安装（推荐） / Auto Install (Recommended)
 
-1. 下载最新版本的压缩包
+1. 前往 [Releases](../../releases) 页面下载最新版本的压缩包
 2. 解压到任意位置
-3. 双击运行 `RollTheTape.bat`
+3. 双击运行 `install.bat`
 4. 脚本会自动检测 Steam 安装位置并复制模组文件
 
-### 方法二：手动安装
+> 1. Download the latest zip from the [Releases](../../releases) page.
+> 2. Extract anywhere.
+> 3. Double-click `install.bat`.
+> 4. The script auto-detects your Steam library and copies the mod files.
+
+### 方法二：手动安装 / Manual Install
 
 1. 下载 `AscensionAdjuster.dll` 和 `AscensionAdjuster.json`
-2. 在游戏目录下新建文件夹：`mods\AscensionAdjuster\`
+2. 在游戏目录下新建文件夹 `mods\AscensionAdjuster\`
 3. 将上述两个文件复制到该文件夹中
 
-游戏目录示例：
 ```
-D:\Steam\steamapps\common\Slay the Spire 2\mods\AscensionAdjuster\
+[游戏目录]\mods\AscensionAdjuster\
+例如: D:\Steam\steamapps\common\Slay the Spire 2\mods\AscensionAdjuster\
 ```
 
-> 若不确定游戏位置，请在 Steam 库中右键游戏 → 管理 → 浏览本地文件
+> Download `AscensionAdjuster.dll` and `AscensionAdjuster.json`, create the folder `mods\AscensionAdjuster\` inside your game directory, and copy both files there.
+>
+> *Can't find your game folder? In Steam: right-click the game → Manage → Browse local files.*
 
-### 方法三：从源码构建
+### 方法三：从源码构建 / Build from Source
 
-需要安装 [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)。
+需要 [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)。 / Requires [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0).
 
 ```bash
-git clone <本仓库地址>
-cd AscensionAdjuster
+git clone https://github.com/VariianWrynn/STS2-Acension-level-unlock.git
+cd STS2-Acension-level-unlock
 dotnet build
 ```
 
-构建完成后，DLL 和 JSON 会自动复制到游戏的 `mods` 目录。
+构建完成后，DLL 和 JSON 会自动复制到游戏的 `mods` 目录。注意：`AscensionAdjuster.csproj` 中的 `Sts2Dir` 路径需指向你的游戏安装目录。
 
-> 注意：`AscensionAdjuster.csproj` 中的 `Sts2Dir` 路径需指向你的游戏安装目录。
+> After building, the DLL and JSON are copied to your game's `mods` directory automatically. Update the `Sts2Dir` path in `AscensionAdjuster.csproj` to match your game install location.
 
 ---
 
-## 激活模组
+## 激活模组 / Activation
 
 1. 启动「杀戮尖塔 2」
 2. 在主菜单点击 **Mods（模组）** 按钮
@@ -64,19 +89,21 @@ dotnet build
 
 激活后，在角色选择界面即可看到天梯等级选择器，所有角色均可选择 0–10 级。
 
+> Launch the game → click **Mods** on the main menu → enable **Ascension Adjuster** → restart. The Ascension selector will be available for all characters (0–10).
+
 ---
 
-## 配置说明
+## 配置说明 / Configuration
 
-首次运行游戏后，模组目录中会自动生成 `config.json` 文件。
-用记事本打开即可编辑。
+首次运行游戏后，模组目录中会自动生成 `config.json`，用记事本打开即可编辑。
 
-文件路径：
+*`config.json` is auto-generated on first run. Edit it with any text editor.*
+
 ```
 [游戏目录]\mods\AscensionAdjuster\config.json
 ```
 
-### 默认配置
+### 默认配置 / Default Config
 
 ```json
 {
@@ -87,100 +114,91 @@ dotnet build
 }
 ```
 
-所有角色的单人模式天梯上限统一解锁至第 10 级。多人联机天梯默认不干预。
+### 配置项说明 / Config Reference
 
-### 配置项说明
-
-| 配置项 | 类型 | 说明 |
+| 配置项 / Key | 类型 / Type | 说明 / Description |
 |---|---|---|
-| `enabled` | `true` / `false` | 模组总开关。设为 `false` 可临时禁用，无需卸载模组 |
-| `global_ascension_override` | `0` ~ `10` 或 `-1` | 单人模式全局天梯上限，对所有角色生效。设为 `-1` 表示不干预，使用游戏原始进度 |
-| `character_overrides` | 对象 | 为单个角色单独设置上限，优先级高于全局设置（详见下方） |
-| `multiplayer_ascension_override` | `0` ~ `10` 或 `-1` | 多人联机天梯上限。设为 `-1` 表示不干预（默认）。详见下方「多人联机」章节 |
+| `enabled` | `true` / `false` | 模组总开关 / Master switch |
+| `global_ascension_override` | `0`–`10` 或 `-1` | 单人全局天梯上限；`-1` 表示不干预 / Singleplayer cap for all characters; `-1` = don't override |
+| `character_overrides` | 对象 / Object | 角色单独上限，优先级高于全局 / Per-character caps, takes priority over global |
+| `multiplayer_ascension_override` | `0`–`10` 或 `-1` | 多人联机上限；默认 `-1` 不干预 / Multiplayer cap; default `-1` = don't override |
 
-### 角色单独设置
-
-在 `character_overrides` 中添加角色 ID 和对应的天梯上限：
+### 角色单独设置 / Per-Character Overrides
 
 ```json
 {
   "enabled": true,
   "global_ascension_override": -1,
   "character_overrides": {
-    "CHARACTER.IRONCLAD": 10,
-    "CHARACTER.SILENT": 5,
-    "CHARACTER.DEFECT": 10,
-    "CHARACTER.REGENT": 3,
-    "CHARACTER.NECROBINDER": 7
-  }
+    "CHARACTER.IRONCLAD":    10,
+    "CHARACTER.SILENT":       5,
+    "CHARACTER.DEFECT":      10,
+    "CHARACTER.REGENT":       3,
+    "CHARACTER.NECROBINDER":  7
+  },
+  "multiplayer_ascension_override": -1
 }
 ```
 
-上面的配置含义：
-- 铁甲战士（Ironclad）：解锁至第 10 级
-- 无声者（Silent）：解锁至第 5 级
-- 缺陷体（Defect）：解锁至第 10 级
-- 摄政王（Regent）：解锁至第 3 级
-- 死灵缚者（Necrobinder）：解锁至第 7 级
+### 角色 ID 对照表 / Character ID Reference
 
-### 角色 ID 对照表
-
-| 角色名称 | 角色 ID |
+| 角色 / Character | ID |
 |---|---|
-| 铁甲战士 | `CHARACTER.IRONCLAD` |
-| 无声者 | `CHARACTER.SILENT` |
-| 缺陷体 | `CHARACTER.DEFECT` |
-| 摄政王 | `CHARACTER.REGENT` |
-| 死灵缚者 | `CHARACTER.NECROBINDER` |
+| 铁甲战士 / Ironclad | `CHARACTER.IRONCLAD` |
+| 无声者 / Silent | `CHARACTER.SILENT` |
+| 缺陷体 / Defect | `CHARACTER.DEFECT` |
+| 摄政王 / Regent | `CHARACTER.REGENT` |
+| 死灵缚者 / Necrobinder | `CHARACTER.NECROBINDER` |
 
-### 常用配置示例
+### 常用配置示例 / Quick Examples
 
-**只解锁铁甲战士，其余角色保持原始进度：**
+**只解锁一个角色 / Unlock only one character:**
 ```json
 {
   "enabled": true,
   "global_ascension_override": -1,
-  "character_overrides": {
-    "CHARACTER.IRONCLAD": 10
-  }
+  "character_overrides": { "CHARACTER.IRONCLAD": 10 },
+  "multiplayer_ascension_override": -1
 }
 ```
 
-**全部角色解锁至第 5 级：**
+**全部解锁至第 5 级 / Unlock everyone to level 5:**
 ```json
 {
   "enabled": true,
   "global_ascension_override": 5,
-  "character_overrides": {}
+  "character_overrides": {},
+  "multiplayer_ascension_override": -1
 }
 ```
 
-**临时关闭模组（保留配置）：**
+**临时关闭模组 / Temporarily disable (keeps config):**
 ```json
 {
   "enabled": false,
   "global_ascension_override": 10,
-  "character_overrides": {}
+  "character_overrides": {},
+  "multiplayer_ascension_override": -1
 }
 ```
 
 ---
 
-## 多人联机
+## 多人联机 / Multiplayer
 
-### 单人与多人的区别
+### 单人与多人的区别 / Singleplayer vs Multiplayer
 
-杀戮尖塔 2 的天梯系统在单人和多人模式下是**完全独立**的：
+杀戮尖塔 2 的天梯系统在单人和多人模式下完全独立。
 
-| | 单人模式 | 多人联机 |
+*The Ascension system is entirely separate between singleplayer and multiplayer.*
+
+| | 单人 / Singleplayer | 多人 / Multiplayer |
 |---|---|---|
-| 天梯等级存储 | 每个角色各自独立 | 全局共用一个等级 |
-| 等级上限 | 角色自身的最大等级 | 所有玩家中最低等级的那个 |
-| 控制权 | 玩家自由选择 | 仅房主可修改 |
+| 等级存储 / Storage | 每角色独立 / Per character | 全局共用 / Global single value |
+| 上限来源 / Cap source | 角色自身进度 / Character progress | 房间内所有玩家的最低等级 / Lowest unlock among all players |
+| 控制权 / Control | 玩家自由选择 / Player chooses freely | 仅房主 / Host only |
 
-### 启用多人联机覆盖
-
-在 `config.json` 中设置 `multiplayer_ascension_override`：
+### 启用多人覆盖 / Enabling Multiplayer Override
 
 ```json
 {
@@ -191,85 +209,88 @@ dotnet build
 }
 ```
 
-### 重要须知
+### 重要须知 / Important Notes
 
-- 多人联机的天梯上限 = 房间内所有玩家中最低的解锁等级
-- 因此，**房间内所有玩家都需要安装本模组**，并设置相同的 `multiplayer_ascension_override` 值
-- 如果某位玩家未安装模组，其较低的解锁等级会拉低整个房间的天梯上限
-- 此设置默认关闭（`-1`），不会影响未配置的玩家
+- 游戏采用 **P2P 联机**，无中央服务器。天梯上限 = 房间内所有玩家中最低的解锁等级。
+- **房间内所有玩家都需要安装本模组**，并设置相同的 `multiplayer_ascension_override` 值，覆盖才能完全生效。
+- 若某位玩家未安装模组，其较低的解锁等级仍会拉低整个房间的天梯上限。
+- 此设置默认关闭（`-1`），对未配置的玩家没有任何影响。
 
----
-
-## 天梯等级一览
-
-| 等级 | 名称 | 效果 |
-|:---:|---|---|
-| 1 | 蜂拥精英 | 精英怪出现频率增加 |
-| 2 | 疲惫旅人 | 古老遗迹仅恢复 80% 缺失生命 |
-| 3 | 贫困潦倒 | 敌人和宝箱掉落金币减少 25% |
-| 4 | 节衣缩食 | 起始药水栏位减少 1 个 |
-| 5 | 登塔者之灾 | 起始时获得一张诅咒牌 |
-| 6 | 阴霾笼罩 | 篝火休息点减少 |
-| 7 | 物资匮乏 | 稀有卡和升级卡出现概率降低 |
-| 8 | 强敌环伺 | 所有敌人更难击杀 |
-| 9 | 致命一击 | 所有敌人攻击更致命 |
-| 10 | 双重Boss | 第三幕末尾同时面对两个 Boss |
+> STS2 uses **P2P networking** — there is no central server. The multiplayer Ascension cap is determined by the lowest unlock level among all players in the lobby. For the override to fully work, **all players in the session should install this mod** and set the same `multiplayer_ascension_override` value. Players without the mod will still cap the lobby at their natural unlock level.
 
 ---
 
-## 技术原理
+## 天梯等级一览 / Ascension Levels
 
-本模组使用 [Harmony](https://github.com/pardeike/Harmony) 运行时补丁技术，通过五个 Postfix 补丁实现：
-
-**单人模式（3 个补丁）：**
-1. **`CharacterStats.MaxAscension` getter** — 将最大天梯等级替换为配置值
-2. **`CharacterStats.PreferredAscension` getter** — 将默认选中等级同步为配置值
-3. **`StartRunLobby.IsAscensionEpochRevealed`** — 绕过「必须先通关第三幕」的前置限制，使从未使用过的角色也能显示天梯选择器
-
-**多人联机（2 个补丁）：**
-4. **`ProgressState.MaxMultiplayerAscension` getter** — 覆盖多人联机最大天梯等级，同时影响加入房间时上报给房主的解锁等级
-5. **`ProgressState.PreferredMultiplayerAscension` getter** — 将多人联机默认选中等级同步为配置值
-
-所有补丁仅在游戏运行时生效，不修改任何存档或游戏文件。
+| 等级 / Level | 中文名 | English Name | 效果 / Effect |
+|:---:|---|---|---|
+| 1 | 蜂拥精英 | Elite Surge | 精英怪出现频率增加 / Elites appear more often |
+| 2 | 疲惫旅人 | Weary Traveler | 遗迹仅恢复 80% 缺失生命 / Relics restore only 80% missing HP |
+| 3 | 贫困潦倒 | Impoverished | 金币掉落减少 25% / 25% less gold from enemies and chests |
+| 4 | 节衣缩食 | Frugal | 起始药水栏位减少 1 / Start with 1 fewer potion slot |
+| 5 | 登塔者之灾 | Cursed Climb | 起始获得一张诅咒牌 / Start each run with a Curse |
+| 6 | 阴霾笼罩 | Dim Hearths | 篝火休息点减少 / Fewer campfire rest sites |
+| 7 | 物资匮乏 | Scarce Supplies | 稀有卡和升级卡出现率降低 / Rare and upgraded cards appear less often |
+| 8 | 强敌环伺 | Hardened Foes | 所有敌人更难击杀 / All enemies are tougher |
+| 9 | 致命一击 | Lethal Blows | 所有敌人攻击更致命 / All enemies hit harder |
+| 10 | 双重Boss | Double Trouble | 第三幕末尾同时面对两个 Boss / Face two Bosses at the end of Act 3 |
 
 ---
 
-## 项目结构
+## 技术原理 / How It Works
+
+本模组使用 [Harmony](https://github.com/pardeike/Harmony) 运行时补丁，通过五个 Postfix 补丁实现。所有补丁仅在游戏运行时生效，不修改任何存档或游戏文件。
+
+*Uses [Harmony](https://github.com/pardeike/Harmony) runtime patching. All patches are in-memory only — no save files or game files are ever modified.*
+
+**单人 / Singleplayer (3 patches):**
+1. `CharacterStats.MaxAscension` getter — 替换最大天梯等级 / Replaces the max Ascension level
+2. `CharacterStats.PreferredAscension` getter — 同步默认选中等级 / Syncs the default selected level
+3. `StartRunLobby.IsAscensionEpochRevealed` — 绕过首次通关前置限制，使新角色也能显示选择器 / Bypasses the "must clear Act 3 first" gate so never-played characters show the selector
+
+**多人 / Multiplayer (2 patches):**
+
+4. `ProgressState.MaxMultiplayerAscension` getter — 覆盖多人联机最大天梯等级 / Overrides the multiplayer max Ascension (also affects the value reported to the host on join)
+5. `ProgressState.PreferredMultiplayerAscension` getter — 同步多人默认选中等级 / Syncs the default multiplayer selected level
+
+---
+
+## 项目结构 / Project Structure
 
 ```
-AscensionAdjuster/
+STS2-Ascension-level-unlock/
 ├── scripts/
-│   ├── Entry.cs              # 模组入口点，注册 Harmony 补丁
-│   ├── Patches.cs            # 五个 Harmony 补丁的实现
-│   └── AscensionConfig.cs    # 配置文件读写逻辑
-├── AscensionAdjuster.csproj  # C# 项目文件
-├── AscensionAdjuster.json    # 模组清单（游戏识别用）
-├── install.bat               # 自动安装脚本（启动器）
-├── install.ps1               # 自动安装脚本（逻辑与界面）
-├── project.godot             # Godot 项目配置
-└── export_presets.cfg        # Godot 导出配置
+│   ├── Entry.cs              # 模组入口，注册补丁 / Mod entry point, registers patches
+│   ├── Patches.cs            # 五个 Harmony 补丁 / Five Harmony patches
+│   └── AscensionConfig.cs    # 配置读写 / Config read/write
+├── AscensionAdjuster.csproj  # C# 项目文件 / C# project file
+├── AscensionAdjuster.json    # 模组清单 / Mod manifest
+├── install.bat               # 安装启动器（纯 ASCII）/ Installer launcher (pure ASCII)
+├── install.ps1               # 安装脚本（含界面）/ Installer script (with UI)
+├── project.godot             # Godot 项目配置 / Godot project config
+└── export_presets.cfg        # Godot 导出配置 / Godot export config
 ```
 
 ---
 
-## 兼容性
+## 兼容性 / Compatibility
 
-- 游戏版本：杀戮尖塔 2 Early Access（基于 Godot 4.5 / .NET 9）
-- 运行环境：Windows
+- 游戏版本 / Game version: 杀戮尖塔 2 Early Access（Godot 4.5 / .NET 9）
+- 平台 / Platform: Windows
 
-### 与 RemoveMultiplayerPlayerLimit 模组的兼容性
+### 与 RemoveMultiplayerPlayerLimit 的兼容性 / Compatibility with RemoveMultiplayerPlayerLimit
 
-本模组与 [RemoveMultiplayerPlayerLimit](https://github.com/rraingGH/STS2-RemoveMultiPlayerLimit)（v0.0.5A）**完全兼容**，两者的 Harmony 补丁无任何重叠。
+本模组与 RemoveMultiplayerPlayerLimit（将联机人数上限从 4 人提升至 8 人以上）**完全兼容**，两者的 Harmony 补丁无任何重叠。
 
-RemoveMultiplayerPlayerLimit 将多人联机人数上限从 4 人提升至 8 人以上。当两个模组同时启用时：
+两个模组同时启用时：
+- 单人天梯覆盖正常工作，不受影响
+- 多人联机天梯上限仍取房间内所有玩家中的最低解锁等级
+- 人数越多，越可能有玩家拉低天梯上限 — 建议所有玩家均安装 AscensionAdjuster 并设置相同的 `multiplayer_ascension_override`
 
-- 单人模式天梯覆盖正常工作，不受影响
-- 多人联机中，天梯上限仍然取所有玩家中的最低解锁等级
-- 人数越多，越可能有玩家拉低天梯上限 — 因此**建议房间内所有玩家都安装 AscensionAdjuster** 并设置相同的 `multiplayer_ascension_override` 值
-- 不与其他模组冲突（除非其他模组也修改天梯相关逻辑）
+> Fully compatible with RemoveMultiplayerPlayerLimit (raises lobby cap from 4 to 8+). No overlapping patches. Singleplayer override works as normal. With more players in the lobby, it becomes more important that everyone has AscensionAdjuster installed and configured with the same `multiplayer_ascension_override`.
 
 ---
 
-## 许可协议
+## 许可协议 / License
 
-MIT License — 自由使用、修改和分发。
+MIT License — 自由使用、修改和分发。 / Free to use, modify, and distribute.
