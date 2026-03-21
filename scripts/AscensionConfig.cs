@@ -152,6 +152,6 @@ public static class AscensionConfig
         public Dictionary<string, int> CharacterOverrides { get; set; } = new();
 
         [JsonPropertyName("multiplayer_ascension_override")]
-        public int MultiplayerAscensionOverride { get; set; } = -1;
+        public int MultiplayerAscensionOverride { get; set; } = 10;
     }
 }
